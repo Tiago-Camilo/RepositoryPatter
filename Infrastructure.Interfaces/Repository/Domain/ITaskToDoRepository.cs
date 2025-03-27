@@ -11,6 +11,6 @@ namespace Infrastructure.Interfaces.Repository.Domain
     public interface ITaskToDoRepository : IDomainRepository<TaskToDo>
     {
         Task<IEnumerable<TaskToDo>> GetAllIncludingUserAsync();
-        Task<TaskToDo> GetAllIncludingUserAsync(int id);
+        Task<TaskToDo> GetByIdIncludingUserAsync(int id);
     }
 }

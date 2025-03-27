@@ -22,7 +22,7 @@ namespace Infrastrucuture.Repositories.Domain.EFCore
             return query.AsEnumerable();
         }
 
-        public async Task<TaskToDo> GetAllIncludingUserAsync(int id)
+        public async Task<TaskToDo> GetByIdIncludingUserAsync(int id)
         {
             IQueryable<TaskToDo> query = await Task.FromResult(GenerateQuery((taskToDo => taskToDo.Id == id), null, nameof(TaskToDo.User)));
             return query.SingleOrDefault();

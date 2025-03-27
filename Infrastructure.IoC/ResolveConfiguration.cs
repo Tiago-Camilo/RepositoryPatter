@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace UnitTest.Integration.Repositories.Repositories.DataBuilder
+namespace Infrastructure.IoC
 {
-    internal class TaskToDobuilder
+    internal class ResolveConfiguration
     {
     }
 }

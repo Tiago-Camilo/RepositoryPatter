@@ -2,6 +2,7 @@
 using System;
 using Microsoft.Extensions.Configuration;
 using Domain.Entities;
+using Infrastructure.DBConfiguration;
 namespace Infrastrucuture.DBConfiguration.EFCore
 {
     public class ApplicationContext : DbContext
