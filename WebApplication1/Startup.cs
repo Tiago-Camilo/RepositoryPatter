@@ -10,7 +10,7 @@ using Application.IoC.Services;
 using Infrastructure.IoC.ORMs.EFCore;
 using IHostingEnvironment = Microsoft.AspNetCore.Hosting.IHostingEnvironment;
 
-namespace WebApplication
+namespace WebApplication1
 {
     public class Startup
     {
