@@ -13,5 +13,6 @@ namespace Application.Interfaces.Services.Domain
         Task UpdateStatusAsync(int id, bool status);
         Task<IEnumerable<TaskToDo>> GetAllIncludingUserAsync();
         Task<TaskToDo> GetByIdIncludingUserAsync(int id);
+        Task<bool> Exists(int id);
     }
 }

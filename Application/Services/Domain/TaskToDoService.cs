@@ -17,11 +17,16 @@ namespace Application.Services.Domain
     {
         private readonly ITaskToDoRepository _repository;
 
+
+        public async Task<bool> Exists(int id)
+        {
+            var task = await _repository.GetByIdAsync(id);
+            return task != null;
+        }
         public TaskToDoService(ITaskToDoRepository repository) : base(repository)
         {
             _repository = repository;
         }
-
         public async Task<IEnumerable<TaskToDo>> GetAllIncludingUserAsync()
         {
             return await _repository.GetAllIncludingUserAsync();

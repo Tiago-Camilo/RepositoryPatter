@@ -1,6 +1,8 @@
 ﻿using Application.Interfaces.Services.Domain;
 using Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Application.Services.Domain;
 
 namespace WebApplication1.Controllers
 {
@@ -25,7 +27,7 @@ namespace WebApplication1.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Title,Start,DeadLine,UserId")] TaskToDo taskToDo)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 await _taskToDoService.AddAsync(taskToDo);
                 return RedirectToAction("Index",
@@ -39,6 +41,7 @@ namespace WebApplication1.Controllers
         // GET: TaskToDo/Edit/{taskId}
         public async Task<IActionResult> Edit(int? id)
         {
+
             if (id == null)
             {
                 return NotFound();
@@ -65,13 +68,36 @@ namespace WebApplication1.Controllers
 
             if (ModelState.IsValid)
             {
-                await _taskToDoService.UpdateAsync(taskToDo);
-                return RedirectToAction("Index",
-                      new RouteValueDictionary(
-                          new { controller = "User", action = "Index", Id = taskToDo.UserId }));
+                ViewData["UserId"] = taskToDo.UserId;
+                return View(taskToDo);
             }
-            ViewData["UserId"] = taskToDo.UserId;
-            return View(taskToDo);
+
+            try
+            {
+                var existingTask = await _taskToDoService.GetByIdAsync(id);
+                if (existingTask == null)
+                {
+                    return NotFound();
+                }
+
+                existingTask.Title = taskToDo.Title;
+                existingTask.Start = taskToDo.Start;
+                existingTask.DeadLine = taskToDo.DeadLine;
+
+                await _taskToDoService.UpdateAsync(existingTask);
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!await _taskToDoService.Exists(id))
+                {
+                    return NotFound();
+                }else
+                {
+                    throw;
+                }
+            }
+
+            return RedirectToAction("Index", "User", new {Id = taskToDo.UserId});
         }
 
         // GET: TaskToDo/Delete/{taskId}
