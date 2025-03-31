@@ -8,9 +8,9 @@ using Application.IoC;
 using Infrastructure.IoC;
 using Application.IoC.Services;
 using Infrastructure.IoC.ORMs.EFCore;
-using IHostingEnvironment = Microsoft.AspNetCore.Hosting.IHostingEnvironment;
+using IHostingEnvironment = Microsoft.Extensions.Hosting.IHostingEnvironment;
 
-namespace WebApplication1
+namespace WebApplication
 {
     public class Startup
     {
@@ -24,6 +24,9 @@ namespace WebApplication1
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddControllersWithViews()
+            .AddMvcOptions(options => options.EnableEndpointRouting = false);
+
             services.ApplicationServicesIoC();
             services.InfrastructureORM<EntityFrameworkIoC>();
             /* ou */

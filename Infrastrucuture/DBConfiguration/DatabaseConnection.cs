@@ -5,19 +5,24 @@ using System.Collections.Generic;
 
 namespace Infrastructure.DBConfiguration
 {
-    public class DatabaseConnection
+    namespace Infrastructure.DBConfiguration
     {
-        public static IConfiguration ConnectionConfiguration
+        public class DatabaseConnection
         {
-            get
+            public static IConfiguration ConnectionConfiguration
             {
-                var path = $"{Directory.GetParent(Directory.GetCurrentDirectory()).ToString()}\\Infrastructure";
-                IConfigurationRoot Configuration = new ConfigurationBuilder()
-                    .SetBasePath(path)
-                    .AddJsonFile("appsettings.json")
-                    .Build();
-                return Configuration;
+                get
+                {
+                    var path = $"{Directory.GetParent(Directory.GetCurrentDirectory()).ToString()}\\Infrastrucuture";
+                    IConfigurationRoot Configuration = new ConfigurationBuilder()
+                        .SetBasePath(path)
+                        .AddJsonFile("appsettings.json")
+                        .Build();
+
+                    return Configuration;
+                }
             }
         }
     }
 }
+

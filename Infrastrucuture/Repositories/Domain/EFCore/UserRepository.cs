@@ -13,7 +13,7 @@ namespace Infrastrucuture.Repositories.Domain.EFCore
 {
     public class UserRepository : DomainRepository<User>, IUserRepository
     {
-        protected UserRepository(ApplicationContext dbContext) : base(dbContext)
+        public UserRepository(ApplicationContext dbContext) : base(dbContext)
         {
         }
 

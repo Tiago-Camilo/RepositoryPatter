@@ -1,4 +1,5 @@
 ﻿using System.Data;
+using Infrastructure.DBConfiguration.Infrastructure.DBConfiguration;
 using Infrastructure.Interfaces.DBConfiguration;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;

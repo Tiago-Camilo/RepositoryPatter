@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Domain.Entities;
 using Infrastructure.Interfaces.Repository.Domain;
+using Infrastrucuture.DBConfiguration.EFCore;
 using Infrastrucuture.Repositories.Standard.EFCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,7 +13,7 @@ namespace Infrastrucuture.Repositories.Domain.EFCore
 {
     public class TaskToDoRepository : DomainRepository<TaskToDo>, ITaskToDoRepository
     {
-        protected TaskToDoRepository(DbContext dbContext) : base(dbContext)
+        public TaskToDoRepository(ApplicationContext dbContext) : base(dbContext)
         {
         }
 

@@ -3,6 +3,7 @@ using System;
 using Microsoft.Extensions.Configuration;
 using Domain.Entities;
 using Infrastructure.DBConfiguration;
+using Infrastructure.DBConfiguration.Infrastructure.DBConfiguration;
 namespace Infrastrucuture.DBConfiguration.EFCore
 {
     public class ApplicationContext : DbContext

@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Domain.Entities;
 using Infrastrucuture.DBConfiguration.EFCore;
 using Application.Interfaces.Services.Domain;
+using WebApplication1.Models;
 
 namespace WebApplication1.Controllers
 {
@@ -21,9 +22,12 @@ namespace WebApplication1.Controllers
         }
 
         // GET: User
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? id)
         {
-            return View(await _userService.GetAllAsync());
+            var result = await _userService.GetAllIncludingTasksAsync();
+            var viewModel = new IndexPageViewModel();
+
+            return View(viewModel.MapUsersToViewModel(id, result));
         }
 
         // GET: User/Details/5
@@ -35,7 +39,6 @@ namespace WebApplication1.Controllers
             }
 
             var user = await _userService.GetByIdAsync(id);
-                
             if (user == null)
             {
                 return NotFound();
@@ -51,15 +54,13 @@ namespace WebApplication1.Controllers
         }
 
         // POST: User/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Name")] User user)
         {
             if (ModelState.IsValid)
             {
-                _userService.AddAsync(user);
+                await _userService.AddAsync(user);
                 return RedirectToAction(nameof(Index));
             }
             return View(user);
@@ -82,8 +83,6 @@ namespace WebApplication1.Controllers
         }
 
         // POST: User/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name")] User user)
@@ -97,7 +96,7 @@ namespace WebApplication1.Controllers
             {
                 try
                 {
-                    _userService.UpdateAsync(user);
+                    await _userService.UpdateAsync(user);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -137,7 +136,7 @@ namespace WebApplication1.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var user = await _userService.RemoveAsync(id);
+            await _userService.RemoveAsync(id);
             return RedirectToAction(nameof(Index));
         }
 

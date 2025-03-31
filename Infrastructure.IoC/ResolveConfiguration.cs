@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Infrastructure.DBConfiguration;
+using Infrastructure.DBConfiguration.Infrastructure.DBConfiguration;
 using Microsoft.Extensions.Configuration;
 
 namespace Infrastructure.IoC
